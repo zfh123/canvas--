@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+	#myCanvas{
+		background: green;
+	}
+	</style>
+</head>
+<body>
+<canvas id="myCanvas" width="600" height="600"></canvas>	
+</body>
+<script>
+	var dataJson=[
+	{
+		value:50,
+		id:'001',
+	},
+	{
+		value:150,
+		id:'002'
+	}
+	]
+
+	var myCanvas = document.getElementById("myCanvas");
+			var ctx = myCanvas.getContext('2d');
+
+	//画轴x
+	ctx.beginPath();
+	ctx.moveTo(10,500);
+	ctx.lineTo(500,500);
+	ctx.strokeStyle='#fff';
+	ctx.stroke();
+
+	//画三角箭头
+	ctx.beginPath();
+	ctx.moveTo(500, 495);
+	ctx.lineTo(500, 505);
+	ctx.lineTo(505, 500);
+	ctx.strokeStyle='#fff';
+	ctx.closePath();
+	ctx.fill();
+
+	//画y轴
+	ctx.beginPath();
+	ctx.moveTo(10,500)
+	ctx.lineTo(10,10);
+	ctx.stroke();
+	//画X轴上面的三角形箭头
+			ctx.beginPath();
+			ctx.moveTo(5, 10);
+			ctx.lineTo(15, 10);
+			ctx.lineTo(10, 5);
+			ctx.closePath();
+			ctx.fill();
+
+
+	// 开始绘画刻度线
+	function lineTag(lu) {
+				var len = parseInt(500 / lu);
+				for(var i = 1; i < len; i++) {
+					ctx.beginPath();
+					ctx.lineWidth = 1;
+					ctx.moveTo(10, 500 - lu * i);
+					ctx.lineTo(20, 500 - lu * i);
+					ctx.strokeStyle = "black";
+					ctx.fillText(lu * i, 22, 500 - lu * i);
+					ctx.stroke();
+				}
+			}
+			lineTag(50);
+
+
+// 绘画图形、
+var n=0;
+function drawAll(){
+	ctx.clearRect(50,0,450,490);
+	n++;
+	if(n==100){
+		clearInterval(timer)
+	}
+	function drawLine(d,h){
+		ctx.beginPath();
+		ctx.lineWidth='30';
+		ctx.moveTo(60*d,500);
+		ctx.lineTo(60*d,500-n*(h/100));
+		ctx.strokeStyle='yellow';
+		// ctx.fillText(d)
+		ctx.fillText(parseInt(n*(h/100)), 60*d-10, parseInt(500 - n*(h/100))-5);
+		ctx.stroke();
+	}
+
+drawLine(1,100);
+drawLine(2,200);
+drawLine(3,300);
+drawLine(4,400);
+drawLine(5,450)
+
+
+
+}
+var timer=setInterval(drawAll,30);
+
+</script>
+</html>
